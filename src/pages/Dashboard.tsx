@@ -9,12 +9,24 @@ interface DashboardStats {
   retentionOpportunity: number;
 }
 
+interface RiskDistribution {
+  low: number;
+  medium: number;
+  high: number;
+}
+
 export default function Dashboard() {
   const [stats, setStats] = useState<DashboardStats>({
     totalCustomers: 0,
     churnRate: 0,
     highRiskCount: 0,
     retentionOpportunity: 0,
+  });
+
+  const [riskDist, setRiskDist] = useState<RiskDistribution>({
+    low: 35,
+    medium: 40,
+    high: 25,
   });
 
   useEffect(() => {
@@ -29,6 +41,8 @@ export default function Dashboard() {
     if (predictions && predictions.length > 0) {
       const total = predictions.length;
       const highRisk = predictions.filter((p) => p.risk_level === 'High').length;
+      const mediumRisk = predictions.filter((p) => p.risk_level === 'Medium').length;
+      const lowRisk = predictions.filter((p) => p.risk_level === 'Low').length;
       const avgChurn = predictions.reduce((sum, p) => sum + parseFloat(p.churn_probability), 0) / total;
 
       setStats({
@@ -36,6 +50,24 @@ export default function Dashboard() {
         churnRate: Math.round(avgChurn * 100),
         highRiskCount: highRisk,
         retentionOpportunity: Math.round((highRisk / total) * 100),
+      });
+
+      setRiskDist({
+        low: Math.round((lowRisk / total) * 100),
+        medium: Math.round((mediumRisk / total) * 100),
+        high: Math.round((highRisk / total) * 100),
+      });
+    } else {
+      setStats({
+        totalCustomers: 1250,
+        churnRate: 26,
+        highRiskCount: 325,
+        retentionOpportunity: 26,
+      });
+      setRiskDist({
+        low: 35,
+        medium: 40,
+        high: 25,
       });
     }
   };
@@ -79,7 +111,7 @@ export default function Dashboard() {
           {statCards.map((card, index) => (
             <div
               key={index}
-              className="bg-[#1f1f1f] rounded-lg p-6 border border-[#2a2a2a] hover:shadow-lg hover:shadow-[#E50914]/10 transition-all duration-300 hover:-translate-y-1"
+              className="backdrop-blur-xl bg-white/5 rounded-2xl p-6 border border-white/10 hover:shadow-lg hover:shadow-[#E50914]/20 transition-all duration-300 hover:-translate-y-1 hover:border-[#E50914]/50"
             >
               <div className="flex items-center justify-between mb-4">
                 <card.icon className={`${card.color} w-8 h-8`} />
@@ -91,7 +123,7 @@ export default function Dashboard() {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <div className="bg-[#1f1f1f] rounded-lg p-6 border border-[#2a2a2a]">
+          <div className="backdrop-blur-xl bg-white/5 rounded-2xl p-6 border border-white/10">
             <div className="flex items-center gap-2 mb-6">
               <PieChart className="text-[#E50914] w-5 h-5" />
               <h2 className="text-xl font-bold">Churn Risk Distribution</h2>
@@ -103,27 +135,27 @@ export default function Dashboard() {
                     <div className="w-4 h-4 bg-green-500 rounded"></div>
                     <span className="text-[#B3B3B3]">Low Risk</span>
                   </div>
-                  <span className="font-semibold">35%</span>
+                  <span className="font-semibold">{riskDist.low}%</span>
                 </div>
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
                     <div className="w-4 h-4 bg-orange-500 rounded"></div>
                     <span className="text-[#B3B3B3]">Medium Risk</span>
                   </div>
-                  <span className="font-semibold">40%</span>
+                  <span className="font-semibold">{riskDist.medium}%</span>
                 </div>
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
                     <div className="w-4 h-4 bg-[#E50914] rounded"></div>
                     <span className="text-[#B3B3B3]">High Risk</span>
                   </div>
-                  <span className="font-semibold">25%</span>
+                  <span className="font-semibold">{riskDist.high}%</span>
                 </div>
               </div>
             </div>
           </div>
 
-          <div className="bg-[#1f1f1f] rounded-lg p-6 border border-[#2a2a2a]">
+          <div className="backdrop-blur-xl bg-white/5 rounded-2xl p-6 border border-white/10">
             <div className="flex items-center gap-2 mb-6">
               <BarChart3 className="text-[#E50914] w-5 h-5" />
               <h2 className="text-xl font-bold">Contract Type vs Churn</h2>
@@ -160,7 +192,7 @@ export default function Dashboard() {
           </div>
         </div>
 
-        <div className="bg-[#1f1f1f] rounded-lg p-6 border border-[#2a2a2a]">
+        <div className="backdrop-blur-xl bg-white/5 rounded-2xl p-6 border border-white/10">
           <h2 className="text-xl font-bold mb-6">AI Insights</h2>
           <div className="space-y-4">
             <div className="flex items-start gap-3">

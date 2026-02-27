@@ -1,5 +1,5 @@
 /*
-  # ChurnFlix AI Database Schema
+  # Churn Prediction AI AI Database Schema
 
   ## Overview
   Creates tables for storing customer churn predictions and upload history.

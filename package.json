@@ -1,7 +1,9 @@
 {
-  "name": "vite-react-typescript-starter",
+  "name": "churn-prediction-ai",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "description": "Customer Churn Prediction Platform with ML Models",
+  "author": "Your Name",
   "type": "module",
   "scripts": {
     "dev": "vite",

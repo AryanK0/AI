@@ -5,6 +5,7 @@ import Predict from './pages/Predict';
 import Analytics from './pages/Analytics';
 import Upload from './pages/Upload';
 import History from './pages/History';
+import About from './pages/About';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route path="/analytics" element={<Analytics />} />
           <Route path="/upload" element={<Upload />} />
           <Route path="/history" element={<History />} />
+          <Route path="/about" element={<About />} />
         </Routes>
       </div>
     </Router>

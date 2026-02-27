@@ -9,7 +9,7 @@ import io
 
 from api.models import run_prediction
 
-app = FastAPI(title="ChurnFlix Upload API", version="1.0.0")
+app = FastAPI(title="Churn Prediction AI Upload API", version="1.0.0")
 app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
 
 

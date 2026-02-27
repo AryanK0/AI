@@ -140,7 +140,7 @@ export default function Predict() {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <div className="bg-[#1f1f1f] rounded-lg p-6 border border-[#2a2a2a]">
+          <div className="backdrop-blur-xl bg-white/5 rounded-2xl p-6 border border-white/10 shadow-2xl">
             <h2 className="text-xl font-bold mb-6">Customer Information</h2>
 
             <div className="space-y-4 max-h-[70vh] overflow-y-auto pr-2">
@@ -149,7 +149,7 @@ export default function Predict() {
                 <select
                   value={model}
                   onChange={(e) => setModel(e.target.value as ModelType)}
-                  className="w-full bg-[#141414] border border-[#2a2a2a] rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-[#E50914]/50"
+                  className="w-full backdrop-blur-xl bg-black/30 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-[#E50914]/50"
                 >
                   <option value="final">Final (PyCaret LR)</option>
                   <option value="benchmark">Benchmark (H2O)</option>
@@ -310,12 +310,12 @@ export default function Predict() {
             </div>
           </div>
 
-          <div className="bg-[#1f1f1f] rounded-lg p-6 border border-[#2a2a2a]">
+          <div className="backdrop-blur-xl bg-white/5 rounded-2xl p-6 border border-white/10 shadow-2xl">
             <h2 className="text-xl font-bold mb-6">Prediction Results</h2>
 
             {result ? (
               <div className="space-y-6">
-                <div className="text-center py-8 border-b border-[#2a2a2a]">
+                <div className="text-center py-8 border-b border-white/10">
                   <div className="mb-4">
                     <TrendingDown className="w-16 h-16 mx-auto text-[#E50914]" />
                   </div>

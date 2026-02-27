@@ -1,1 +1,1 @@
-# ChurnFlix API - Final, Benchmark, Test notebook endpoints
+# Churn Prediction AI API - Final, Benchmark, Test notebook endpoints

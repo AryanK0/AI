@@ -6,7 +6,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from api.models import predict_test
 
-app = FastAPI(title="ChurnFlix Test API", version="1.0.0")
+app = FastAPI(title="Churn Prediction AI Test API", version="1.0.0")
 app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
 
 

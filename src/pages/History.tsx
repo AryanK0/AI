@@ -29,13 +29,21 @@ export default function History() {
   }, [predictions, searchTerm, riskFilter]);
 
   const loadPredictions = async () => {
-    const { data } = await supabase
-      .from('predictions')
-      .select('*')
-      .order('created_at', { ascending: false });
+    try {
+      const { data, error } = await supabase
+        .from('predictions')
+        .select('*')
+        .order('created_at', { ascending: false });
 
-    if (data) {
-      setPredictions(data);
+      if (error) {
+        console.error('Error loading predictions:', error);
+        setPredictions([]);
+      } else if (data) {
+        setPredictions(data);
+      }
+    } catch (err) {
+      console.error('Failed to load predictions:', err);
+      setPredictions([]);
     }
   };
 
@@ -90,7 +98,7 @@ export default function History() {
           <p className="text-[#B3B3B3]">View and analyze past churn predictions</p>
         </div>
 
-        <div className="bg-[#1f1f1f] rounded-lg p-6 border border-[#2a2a2a]">
+        <div className="backdrop-blur-xl bg-white/5 rounded-2xl p-6 border border-white/10 shadow-2xl">
           <div className="flex flex-col md:flex-row gap-4 mb-6">
             <div className="flex-1 relative">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-[#B3B3B3] w-5 h-5" />
@@ -99,7 +107,7 @@ export default function History() {
                 placeholder="Search by contract type or risk level..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full bg-[#141414] border border-[#2a2a2a] rounded-lg pl-10 pr-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-[#E50914]/50"
+                className="w-full backdrop-blur-xl bg-black/30 border border-white/10 rounded-lg pl-10 pr-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-[#E50914]/50"
               />
             </div>
 
@@ -108,7 +116,7 @@ export default function History() {
               <select
                 value={riskFilter}
                 onChange={(e) => setRiskFilter(e.target.value)}
-                className="w-full md:w-48 bg-[#141414] border border-[#2a2a2a] rounded-lg pl-10 pr-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-[#E50914]/50"
+                className="w-full md:w-48 backdrop-blur-xl bg-black/30 border border-white/10 rounded-lg pl-10 pr-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-[#E50914]/50"
               >
                 <option>All</option>
                 <option>High</option>
@@ -121,7 +129,7 @@ export default function History() {
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>
-                <tr className="border-b border-[#2a2a2a]">
+                <tr className="border-b border-white/10">
                   <th className="text-left py-4 px-4 text-sm font-semibold text-[#B3B3B3]">Date</th>
                   <th className="text-left py-4 px-4 text-sm font-semibold text-[#B3B3B3]">Contract Type</th>
                   <th className="text-left py-4 px-4 text-sm font-semibold text-[#B3B3B3]">Tenure</th>
@@ -133,7 +141,7 @@ export default function History() {
               <tbody>
                 {currentPredictions.length > 0 ? (
                   currentPredictions.map((prediction) => (
-                    <tr key={prediction.id} className="border-b border-[#2a2a2a] hover:bg-[#2a2a2a]/30 transition-colors">
+                    <tr key={prediction.id} className="border-b border-white/5 hover:bg-white/5 transition-colors">
                       <td className="py-4 px-4 text-sm">{formatDate(prediction.created_at)}</td>
                       <td className="py-4 px-4 text-sm">{prediction.contract_type}</td>
                       <td className="py-4 px-4 text-sm">{prediction.tenure} months</td>
@@ -164,7 +172,7 @@ export default function History() {
           </div>
 
           {totalPages > 1 && (
-            <div className="flex items-center justify-between mt-6 pt-6 border-t border-[#2a2a2a]">
+            <div className="flex items-center justify-between mt-6 pt-6 border-t border-white/10">
               <div className="text-sm text-[#B3B3B3]">
                 Showing {startIndex + 1} to {Math.min(endIndex, filteredPredictions.length)} of{' '}
                 {filteredPredictions.length} results
@@ -174,7 +182,7 @@ export default function History() {
                 <button
                   onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
                   disabled={currentPage === 1}
-                  className="px-4 py-2 bg-[#2a2a2a] rounded-lg text-sm font-medium hover:bg-[#2a2a2a]/80 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                  className="px-4 py-2 backdrop-blur-xl bg-white/5 rounded-lg text-sm font-medium hover:bg-white/10 disabled:opacity-50 disabled:cursor-not-allowed transition-colors border border-white/10"
                 >
                   Previous
                 </button>
@@ -185,8 +193,8 @@ export default function History() {
                       onClick={() => setCurrentPage(page)}
                       className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
                         currentPage === page
-                          ? 'bg-[#E50914] text-white'
-                          : 'bg-[#2a2a2a] hover:bg-[#2a2a2a]/80'
+                          ? 'bg-[#E50914] text-white border border-[#E50914]'
+                          : 'backdrop-blur-xl bg-white/5 hover:bg-white/10 border border-white/10'
                       }`}
                     >
                       {page}
@@ -196,7 +204,7 @@ export default function History() {
                 <button
                   onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
                   disabled={currentPage === totalPages}
-                  className="px-4 py-2 bg-[#2a2a2a] rounded-lg text-sm font-medium hover:bg-[#2a2a2a]/80 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                  className="px-4 py-2 backdrop-blur-xl bg-white/5 rounded-lg text-sm font-medium hover:bg-white/10 disabled:opacity-50 disabled:cursor-not-allowed transition-colors border border-white/10"
                 >
                   Next
                 </button>

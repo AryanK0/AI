@@ -78,13 +78,13 @@ export default function Upload() {
           <p className="text-[#B3B3B3]">Upload a CSV file containing customer data for batch churn prediction</p>
         </div>
 
-        <div className="bg-[#1f1f1f] rounded-lg p-8 border border-[#2a2a2a]">
+        <div className="backdrop-blur-xl bg-white/5 rounded-2xl p-8 border border-white/10 shadow-2xl">
           <div className="mb-6">
             <h2 className="text-xl font-bold mb-2">Model (Notebook)</h2>
             <select
               value={model}
               onChange={(e) => setModel(e.target.value as ModelType)}
-              className="w-full max-w-xs bg-[#141414] border border-[#2a2a2a] rounded-lg px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-[#E50914]/50 mb-4"
+              className="w-full max-w-xs backdrop-blur-xl bg-black/30 border border-white/10 rounded-lg px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-[#E50914]/50 mb-4"
             >
               <option value="final">Final (PyCaret LR)</option>
               <option value="benchmark">Benchmark (H2O)</option>
@@ -92,7 +92,7 @@ export default function Upload() {
             </select>
             <h2 className="text-xl font-bold mb-2">CSV Format Requirements</h2>
             <p className="text-sm text-[#B3B3B3] mb-4">Your CSV should contain the following columns:</p>
-            <div className="bg-[#141414] rounded-lg p-4 text-sm font-mono text-[#B3B3B3] break-all">
+            <div className="backdrop-blur-xl bg-black/30 rounded-lg p-4 text-sm font-mono text-[#B3B3B3] break-all border border-white/10">
               gender, SeniorCitizen, Partner, Dependents, tenure, PhoneService, MultipleLines,
               InternetService, OnlineSecurity, DeviceProtection, TechSupport, StreamingTV, StreamingMovies,
               Contract, PaperlessBilling, PaymentMethod, MonthlyCharges, TotalCharges
@@ -110,7 +110,7 @@ export default function Upload() {
               className={`flex flex-col items-center justify-center w-full h-64 border-2 border-dashed rounded-lg cursor-pointer transition-all duration-300 ${
                 dragActive
                   ? 'border-[#E50914] bg-[#E50914]/10'
-                  : 'border-[#2a2a2a] hover:border-[#E50914]/50 hover:bg-[#E50914]/5'
+                  : 'border-white/20 hover:border-[#E50914]/50 hover:bg-[#E50914]/5'
               }`}
             >
               <div className="flex flex-col items-center justify-center pt-5 pb-6">
@@ -147,7 +147,7 @@ export default function Upload() {
                 </div>
               </div>
 
-              <div className="bg-[#141414] rounded-lg p-6">
+              <div className="backdrop-blur-xl bg-black/30 rounded-lg p-6 border border-white/10">
                 <h3 className="text-lg font-bold mb-4">Prediction Summary</h3>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                   <div className="text-center">
@@ -174,7 +174,7 @@ export default function Upload() {
                   <Download className="w-5 h-5" />
                   Download Results
                 </button>
-                <button className="flex-1 flex items-center justify-center gap-2 bg-[#2a2a2a] hover:bg-[#2a2a2a]/80 text-white font-semibold py-3 rounded-lg transition-all duration-300 hover:scale-[1.02]">
+                <button className="flex-1 flex items-center justify-center gap-2 backdrop-blur-xl bg-white/10 hover:bg-white/20 text-white font-semibold py-3 rounded-lg transition-all duration-300 hover:scale-[1.02] border border-white/10">
                   <FileText className="w-5 h-5" />
                   View Details
                 </button>
@@ -183,10 +183,10 @@ export default function Upload() {
           )}
         </div>
 
-        <div className="bg-[#1f1f1f] rounded-lg p-6 border border-[#2a2a2a]">
+        <div className="backdrop-blur-xl bg-white/5 rounded-2xl p-6 border border-white/10 shadow-2xl">
           <h3 className="text-lg font-bold mb-4">Sample CSV Template</h3>
           <p className="text-sm text-[#B3B3B3] mb-4">Download our sample CSV template to get started</p>
-          <button className="flex items-center gap-2 px-6 py-2 bg-[#2a2a2a] hover:bg-[#2a2a2a]/80 text-white rounded-lg transition-all duration-300">
+          <button className="flex items-center gap-2 px-6 py-2 backdrop-blur-xl bg-white/10 hover:bg-white/20 text-white rounded-lg transition-all duration-300 border border-white/10">
             <Download className="w-4 h-4" />
             Download Template
           </button>

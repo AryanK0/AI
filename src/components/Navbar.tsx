@@ -12,16 +12,18 @@ export default function Navbar() {
     { name: 'Analytics', path: '/analytics' },
     { name: 'Upload', path: '/upload' },
     { name: 'History', path: '/history' },
+    { name: 'About', path: '/about' },
   ];
 
   const isActive = (path: string) => location.pathname === path;
 
   return (
-    <nav className="sticky top-0 z-50 bg-[#141414]/90 backdrop-blur-md border-b border-[#2a2a2a]">
+    <nav className="sticky top-0 z-50 backdrop-blur-xl bg-black/40 border-b border-white/10 shadow-lg">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          <Link to="/" className="text-xl font-bold text-white">
-            Churn Prediction <span className="text-[#E50914]">AI</span>
+          <Link to="/" className="text-xl font-bold text-white flex items-center gap-2">
+            <span className="bg-gradient-to-r from-[#E50914] to-orange-500 bg-clip-text text-transparent">Churn Prediction</span>
+            <span className="text-white">AI</span>
           </Link>
 
           <div className="hidden md:flex items-center space-x-8">
@@ -50,7 +52,7 @@ export default function Navbar() {
       </div>
 
       {mobileMenuOpen && (
-        <div className="md:hidden bg-[#1f1f1f] border-t border-[#2a2a2a]">
+        <div className="md:hidden backdrop-blur-xl bg-black/60 border-t border-white/10">
           <div className="px-4 py-4 space-y-3">
             {navItems.map((item) => (
               <Link

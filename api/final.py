@@ -6,7 +6,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from api.models import predict_final
 
-app = FastAPI(title="ChurnFlix Final API", version="1.0.0")
+app = FastAPI(title="Churn Prediction AI Final API", version="1.0.0")
 app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
 
 
